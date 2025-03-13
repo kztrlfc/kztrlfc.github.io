@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="style/cookie.css" />
+	<title>Cookie Usage</title>
+</head>
+
+<body>
+	<audio id="snd1" src="files/snd1.mp3" loop="loop"></audio>
+	<audio id="snd2" src="files/snd2.mp3" loop="loop"></audio>
+	<audio id="snd3" src="files/snd3.mp3" loop="loop"></audio>
+	<audio id="snd4" src="files/snd4.mp3" loop="loop"></audio>
+	<audio id="snd5" src="files/snd5.mp3" loop="loop"></audio>
+	<audio id="snd6" src="files/snd6.mp3" loop="loop"></audio>
+	
+	<div id="content"></div>
+
+	<script>
+		function get_sound()
+		{
+			var params = new URLSearchParams(location.search);
+			var snd = params.get("type");
+			if (snd)
+			{
+				var n = parseInt(snd);
+				if (!Number.isNaN(n))
+				{
+					var s = document.getElementById("snd{i}".replace("{i}", n));
+					if (s)
+					{ return s; }
+				}
+			}
+			return null;
+		}
+		
+		function play_sound()
+		{
+			var sound = get_sound();
+			if (sound)
+			{ sound.play(); }
+		}
+	
+		window.onload = function()
+		{
+			var snd = get_sound();
+			var d = document.getElementById("content");
+			if (snd)
+			{
+				var header = document.createElement("h2");
+				header.textContent = "Cookie usage";
+				
+				var paragraph = document.createElement("p");
+				paragraph.textContent = "We use cookies to enhance your experience on our website";
+				
+				var button1 = document.createElement("button");
+				button1.innerText = "Accept";
+				button1.className = "btn";
+				
+				var button2 = document.createElement("button");
+				button2.innerText = "Decline";
+				button2.className = "btn";
+				
+				d.appendChild(header);
+				d.appendChild(paragraph);
+				d.appendChild(button1);
+				d.appendChild(button2);
+			}
+			else
+			{
+				var header = document.createElement("h2");
+				header.textContent = "Something went wrong...";
+				
+				var paragraph = document.createElement("p");
+				paragraph.textContent = "Try again later";
+				
+				d.appendChild(header);
+				d.appendChild(paragraph);
+			}
+		}
+	</script>
+
+	<button class="prank" onclick="play_sound();"></button>
+</body>
+
+</html>
